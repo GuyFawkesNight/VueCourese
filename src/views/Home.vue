@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <b>{{food}}</b>
     <img alt="Vue logo" src="../assets/img/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App"/>
     <button @click="handleClick('back')">前一页</button>
@@ -16,6 +17,25 @@ export default {
   name: 'home',
   components: {
     HelloWorld
+  },
+  props:{
+    food:{
+      type:String,
+      default:"default something"
+    }
+  },
+
+  //路由触发，页面渲染之前
+  beforeRouteEnter (to, from, next) {
+    // 无法直接使用this,可以在next中使用
+    next(vm =>{console.log(vm)});
+  },
+
+//触发路由，离开页面之前
+  beforeRouteLeave (to, from, next) {
+    const leave = confirm("您确定离开吗");
+    if(leave) next();
+    next(false);
   },
   methods:{
     handleClick(action){

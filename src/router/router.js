@@ -9,19 +9,39 @@ export default [
     //别名
     alias :'/home_page',
     // 路由对应的组件
-    component: Home
+    component: Home,
+
+    props:route=>({
+      food:route.query.food
+    }),
+    beforeEnter:(to,from,next)=>{
+      if(from.name=='about') alert("这是从About页来的");
+      else alert("这不是从About页来的");
+      next();
+    }
+  },
+  {
+    path:'/login',
+    name:'login',
+    component:()=>import('@/views/Login.vue')
   },
   {
     path: '/about',
     name: 'about',
     // 懒加载，只有在访问时才会加载组件
-    component: () => import(/* webpackChunkName: "about" */ '@/views/About.vue')
+    component: () => import(/* webpackChunkName: "about" */ '@/views/About.vue'),
+    //指定参数传入
+    props:{
+      food:'banana'
+    }
   },
   // 动态路由配置,参数传递
   {
     path: '/argu/:name',
     name:'argu',
-    component: () => import('@/views/Argu.vue')
+    component: () => import('@/views/Argu.vue'),
+    //使用router.params作为组件的属性值传入
+    props:true
   },
   //嵌套路由
   {
@@ -56,5 +76,9 @@ export default [
       //下面这个时路径
       // return '/';
     }
+  },
+  {
+    path:'*',
+    component:()=>import("@/views/error_404.vue")
   }
 ]
