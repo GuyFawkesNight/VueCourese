@@ -1,4 +1,5 @@
 import Home from '@/views/Home.vue'
+import {setTitle} from '@/lib/util'
 
 export default [
   {
@@ -33,6 +34,9 @@ export default [
     //指定参数传入
     props:{
       food:'banana'
+    },
+    meta:{
+      title:"关于"
     }
   },
   // 动态路由配置,参数传递

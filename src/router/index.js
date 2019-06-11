@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import routes from './router'
+import {setTitle} from '@/lib/util'
 
 Vue.use(Router)
 
@@ -11,6 +12,10 @@ const router = new Router({
 const HAS_LOGIN = true;
 //全局前置守卫
 router.beforeEach((to,from,next)=>{
+
+  //获取路由元数据
+  to.meta && setTitle(to.meta.title);
+
   //未登录则跳转到登陆
   if(to.name!= 'login'){
     if(HAS_LOGIN) next();
